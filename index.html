@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Fair Expo 2026 - SMKN 1 Semparuk</title>
+  
+  <!-- Bootstrap 5, Font Awesome & Google Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- AOS (Animate On Scroll) Library CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #0b1329 0%, #1e293b 50%, #0284c7 100%);
+      --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      --card-bg: #ffffff;
+      --bg-body: #f8fafc;
+      --text-main: #0f172a;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-body);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Hero Banner Dynamic Canvas */
+    .hero-banner {
+      background: var(--primary-gradient);
+      color: #ffffff;
+      padding: 3.5rem 1rem 5.5rem 1rem;
+      border-radius: 0 0 48px 48px;
+      position: relative;
+      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.25);
+      overflow: hidden;
+    }
+
+    #particles-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Slot Logo Job Fair dengan Animasi Floating & 3D Tilt */
+    .brand-logo-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.25rem;
+      z-index: 2;
+      perspective: 1000px;
+    }
+
+    .brand-logo-img {
+      max-height: 110px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 25px rgba(0, 0, 0, 0.4));
+      animation: float 4s ease-in-out infinite;
+      transition: transform 0.3s ease;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245, 158, 11, 0.18);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+      padding: 8px 20px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.825rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+      animation: pulseGlow 2s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 10px rgba(245, 158, 11, 0.2); }
+      100% { box-shadow: 0 0 22px rgba(245, 158, 11, 0.5); }
+    }
+
+    .hero-title {
+      font-weight: 800;
+      font-size: 2.25rem;
+      letter-spacing: -0.8px;
+      line-height: 1.2;
+      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @media (min-width: 768px) {
+      .hero-title { font-size: 3.25rem; }
+    }
+
+    .info-pill {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(12px);
+      border-radius: 50px;
+      padding: 10px 22px;
+      font-size: 0.875rem;
+      color: #f1f5f9;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .info-pill:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    /* Card Interactive Animation */
+    .card-modern {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card-modern:hover {
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .job-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-left: 5px solid #0284c7;
+      border-radius: 20px;
+      padding: 1.5rem;
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .job-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(2, 132, 199, 0.05), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .job-card:hover::after {
+      left: 100%;
+    }
+
+    .job-card:hover {
+      transform: translateY(-5px) scale(1.008);
+      box-shadow: 0 15px 30px rgba(2, 132, 199, 0.15);
+      border-color: #93c5fd;
+      border-left-color: #0284c7;
+    }
+
+    .badge-company-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 10px;
+      background-color: #f0f9ff;
+      color: #0284c7;
+      border: 1px solid #bae6fd;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s ease;
+    }
+
+    .job-card:hover .badge-company-tag {
+      background-color: #0284c7;
+      color: #ffffff;
+    }
+
+    /* Button Ripple & Interactive State */
+    .btn-apply {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: white;
+      font-weight: 700;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-apply:hover {
+      background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+      color: white;
+      box-shadow: 0 8px 25px rgba(2, 132, 199, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-admin-top {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      border-radius: 50px;
+      padding: 8px 18px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      z-index: 10;
+    }
+
+    .btn-admin-top:hover {
+      background: rgba(255, 255, 255, 0.3);
+      color: white;
+      transform: scale(1.05);
+    }
+
+    .form-control-custom, .form-select-custom {
+      border: 1.5px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 12px 18px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-control-custom:focus, .form-select-custom:focus {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .icon-box {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .card-modern:hover .icon-box {
+      transform: rotate(8deg) scale(1.1);
+    }
+
+    .step-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+    }
+
+    /* Modal Modern */
+    .modal-content-modern {
+      border: none;
+      border-radius: 28px;
+      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
+      overflow: hidden;
+    }
+
+    .modal-icon-header {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: -35px auto 1rem auto;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }
+
+    .toast-modern {
+      border-radius: 18px;
+      border: none;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      backdrop-filter: blur(10px);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO BANNER DENGAN CANVAS ANIMASI PARTIKEL -->
+  <header class="hero-banner text-center position-relative">
+    <canvas id="particles-canvas"></canvas>
+
+    <button class="btn btn-admin-top" id="btnToggleAdmin" onclick="toggleHalamanAdmin()">
+      <i class="fa-solid fa-user-shield me-1"></i> <span id="lblToggle">Halaman Admin</span>
+    </button>
+
+    <div class="container position-relative" style="z-index: 2;">
+      
+      <!-- SLOT LOGO JOB FAIR EXPO DENGAN EFEK 3D TILT & FLOATING -->
+      <div class="brand-logo-wrapper" data-aos="zoom-in" data-aos-duration="1000">
+        <img src="logo-jobfair.png" alt="Logo Job Fair Expo 2026" class="brand-logo-img" onerror="this.style.display='none'">
+      </div>
+
+      <div class="mb-3" data-aos="fade-down" data-aos-delay="200">
+        <span class="hero-badge">
+          <i class="fa-solid fa-star"></i> Gratis & Terbuka Untuk Umum
+        </span>
+      </div>
+
+      <h1 class="hero-title mb-3" data-aos="fade-up" data-aos-delay="300">JOB FAIR SMKN 1 SEMPARUK</h1>
+      <p class="text-white-50 mx-auto fs-6 mb-4" style="max-width: 650px; font-weight: 400;" data-aos="fade-up" data-aos-delay="400">
+        Raih Peluang, Wujudkan Karier, dan Jemput Masa Depan Bersama Perusahaan Mitra Terbaik Kami
+      </p>
+
+      <div class="d-flex justify-content-center flex-wrap gap-2 mb-4" data-aos="fade-up" data-aos-delay="500">
+        <div class="info-pill"><i class="fa-solid fa-calendar-day text-warning"></i> 20 OKTOBER 2026</div>
+        <div class="info-pill"><i class="fa-solid fa-clock text-warning"></i> 07.30 WIB - Selesai</div>
+        <div class="info-pill"><i class="fa-solid fa-phone text-warning"></i> CP: +62 831-4394-3124</div>
+      </div>
+
+      <div class="d-flex justify-content-center gap-3 flex-wrap" data-aos="fade-up" data-aos-delay="600">
+        <a href="#sectionDaftar" class="btn btn-warning rounded-pill px-4 py-2.5 fw-bold text-dark shadow-sm btn-hover-effect">
+          <i class="fa-solid fa-paper-plane me-2"></i>Daftar Sekarang
+        </a>
+        <a href="https://smkn1semparuk.sch.id" target="_blank" class="btn btn-outline-light rounded-pill px-4 py-2.5 fw-semibold">
+          <i class="fa-solid fa-globe me-2"></i>Website Sekolah
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HALAMAN UTAMA / PELAMAR ==================== -->
+  <main id="pagePelamar" class="container my-5" style="max-width: 960px;">
+    
+    <!-- BANNER PERSYARATAN & PERUSAHAAN -->
+    <div class="row g-4 mb-5">
+      <!-- Persyaratan -->
+      <div class="col-md-6" data-aos="fade-right" data-aos-duration="800">
+        <div class="card-modern p-4 h-100">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="icon-box bg-primary bg-opacity-10 text-primary">
+              <i class="fa-solid fa-clipboard-check"></i>
+            </div>
+            <h6 class="fw-bold mb-0 fs-5 text-dark">Persyaratan Umum</h6>
+          </div>
+          <ul class="list-unstyled mb-0 small lh-lg text-secondary">
+            <li class="mb-1"><i class="fa-solid fa-circle-check text-success me-2"></i>Surat Lamaran Kerja & CV Terbaru</li>
+            <li class="mb-1"><i class="fa-solid fa-circle-check text-success me-2"></i>Fotokopi KTP & Ijazah Terakhir</li>
+            <li class="mb-1"><i class="fa-solid fa-circle-check text-success me-2"></i>Pas Foto Terbaru Ukuran 3x4</li>
+            <li><i class="fa-solid fa-circle-check text-success me-2"></i>Berpakaian Bebas, Rapi, & Sopan</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Perusahaan Partisipan -->
+      <div class="col-md-6" data-aos="fade-left" data-aos-duration="800">
+        <div class="card-modern p-4 h-100">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="icon-box bg-warning bg-opacity-10 text-warning">
+              <i class="fa-solid fa-building"></i>
+            </div>
+            <h6 class="fw-bold mb-0 fs-5 text-dark">Perusahaan Partisipan</h6>
+          </div>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge bg-light text-dark border p-2"><i class="fa-solid fa-network-wired text-primary me-1"></i> PT. TRANS HYBRID</span>
+            <span class="badge bg-light text-dark border p-2"><i class="fa-solid fa-industry text-warning me-1"></i> PT. FAJAR KITA KUSUMA</span>
+            <span class="badge bg-light text-dark border p-2"><i class="fa-solid fa-motorcycle text-danger me-1"></i> PT. ANEKA MAKMUR SEJAHTERA</span>
+            <span class="badge bg-light text-dark border p-2"><i class="fa-solid fa-car text-success me-1"></i> PT. ASTRA DAIHATSU</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM & LIST LOWONGAN -->
+    <div id="sectionDaftar">
+      
+      <!-- STEP 1: ISI DATA DIRI -->
+      <div class="card-modern p-4 mb-4" data-aos="fade-up" data-aos-duration="800">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <div class="step-number">1</div>
+          <h5 class="fw-bold mb-0 text-dark">Isi Data Diri Pelamar</h5>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label fw-semibold text-secondary small">Nama Lengkap *</label>
+            <input type="text" class="form-control form-control-custom" id="nama" placeholder="Contoh: Budi Santoso" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold text-secondary small">Alamat Domisili *</label>
+            <input type="text" class="form-control form-control-custom" id="alamat" placeholder="Contoh: Semparuk, Sambas" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: PILIH LOWONGAN -->
+      <div class="card-modern p-4" data-aos="fade-up" data-aos-duration="800">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
+          <div class="d-flex align-items-center gap-3">
+            <div class="step-number">2</div>
+            <h5 class="fw-bold mb-0 text-dark">Pilih Lowongan Pekerjaan (Job Field)</h5>
+          </div>
+          <span class="badge bg-info bg-opacity-10 text-info fw-bold px-3 py-2 rounded-pill border border-info border-opacity-25">
+            <i class="fa-solid fa-briefcase me-1"></i> <span id="totalJobBadge">9</span> Lowongan Tersedia
+          </span>
+        </div>
+
+        <!-- Filter Search Box -->
+        <div class="input-group mb-4">
+          <span class="input-group-text bg-light border-end-0 text-muted ps-3"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input type="text" id="searchBox" class="form-control form-control-custom border-start-0 ps-0" placeholder="Cari posisi (Mechanic, Welder, Admin, CME, FO...)" onkeyup="filterJobs()">
+        </div>
+
+        <!-- Container Daftar Lowongan -->
+        <div id="jobList" class="d-flex flex-column gap-3">
+          <!-- Render otomatis dari JS dengan Animasi -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==================== HALAMAN ADMIN ==================== -->
+  <div id="pageAdmin" class="container my-5 d-none" style="max-width: 1000px;">
+    <!-- Box Login PIN Admin -->
+    <div id="adminAuthBox" class="card-modern p-4 text-center mx-auto my-5" style="max-width: 380px;">
+      <div class="icon-box bg-primary bg-opacity-10 text-primary mx-auto mb-3" style="width: 55px; height: 55px; font-size: 1.5rem;">
+        <i class="fa-solid fa-lock"></i>
+      </div>
+      <h5 class="fw-bold mb-1">Akses Dashboard Admin</h5>
+      <p class="text-muted small mb-3">Masukkan PIN Keamanan (Default: <strong>1234</strong>)</p>
+      <input type="password" id="pinInput" class="form-control form-control-custom text-center mb-3 fs-4 fw-bold" placeholder="••••" style="letter-spacing: 6px;">
+      <button class="btn btn-primary w-100 fw-bold py-2.5 rounded-pill shadow-sm" onclick="loginAdmin()">Masuk Dashboard</button>
+    </div>
+
+    <!-- Content Admin Dashboard -->
+    <div id="adminContent" class="d-none">
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <div class="card-modern p-4 bg-primary text-white">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <span class="opacity-75 small text-uppercase fw-semibold">Total Pelamar Masuk</span>
+                <h2 class="fw-bold mb-0 mt-1" id="statTotalPendaftar">0</h2>
+              </div>
+              <i class="fa-solid fa-users fa-3x opacity-25"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card-modern p-4 bg-success text-white">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <span class="opacity-75 small text-uppercase fw-semibold">Total Job Field Tersedia</span>
+                <h2 class="fw-bold mb-0 mt-1" id="statTotalLowongan">9</h2>
+              </div>
+              <i class="fa-solid fa-briefcase fa-3x opacity-25"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-modern p-4">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+          <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-list-check me-2 text-primary"></i>Kelola Status & Catatan Pelamar</h5>
+          <button class="btn btn-outline-primary btn-sm rounded-pill px-3" onclick="fetchAdminData()"><i class="fa-solid fa-rotate me-1"></i> Sync Data</button>
+        </div>
+
+        <div class="input-group mb-3">
+          <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+          <input type="text" id="adminSearchBox" class="form-control form-control-custom border-start-0" placeholder="Cari nama pelamar, perusahaan, posisi, atau status..." onkeyup="filterAdminTable()">
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead class="table-light">
+              <tr>
+                <th>No</th>
+                <th>Waktu</th>
+                <th>Pelamar & Domisili</th>
+                <th>Perusahaan & Posisi</th>
+                <th>Status Konfirmasi</th>
+                <th>Catatan</th>
+                <th class="text-center">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="adminTableBody">
+              <tr><td colspan="7" class="text-center text-muted py-4">Memuat data pelamar...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL KONFIRMASI LAMARAN (PELAMAR) -->
+  <div class="modal fade" id="modalKonfirmasi" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-modern p-3">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold text-primary"><i class="fa-solid fa-paper-plane me-2"></i>Konfirmasi Kirim Lamaran</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body py-3">
+          <p class="text-muted small mb-3">Periksa kembali data Anda sebelum dikirimkan ke sistem:</p>
+          <div class="p-3 rounded-4 bg-light border">
+            <div class="mb-2"><strong>Nama Pelamar:</strong> <span id="confNama" class="text-primary fw-bold"></span></div>
+            <div class="mb-2"><strong>Alamat Domisili:</strong> <span id="confAlamat" class="text-dark"></span></div>
+            <hr class="my-2">
+            <div class="mb-1"><strong>Perusahaan Tujuan:</strong> <span id="confPerusahaan" class="fw-bold"></span></div>
+            <div><strong>Posisi Lowongan:</strong> <span id="confPosisi" class="badge bg-primary fs-6 mt-1"></span></div>
+          </div>
+        </div>
+        <div class="modal-footer border-0 pt-0">
+          <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm" id="btnKirim" onclick="prosesKirim()">Kirim Sekarang</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL EDIT STATUS & CATATAN (ADMIN) -->
+  <div class="modal fade" id="modalEditAdmin" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content modal-content-modern p-3">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-pen-to-square me-2 text-primary"></i>Update Status & Catatan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body py-3">
+          <div class="p-3 bg-light rounded-4 mb-3">
+            <div class="fw-bold text-dark" id="editNamaPelamar">-</div>
+            <div class="small text-muted" id="editDetailLamaran">-</div>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label fw-semibold text-secondary small">Status Konfirmasi *</label>
+            <select id="editStatusSelect" class="form-select form-select-custom fw-semibold">
+              <option value="Pending">🟡 Pending / Menunggu</option>
+              <option value="Diterima">🟢 Diterima / Lolos Berkas</option>
+              <option value="Ditolak">🔴 Ditolak / Belum Sesuai</option>
+            </select>
+          </div>
+
+          <div class="mb-2">
+            <label class="form-label fw-semibold text-secondary small">Catatan Admin</label>
+            <textarea id="editCatatanInput" class="form-control form-control-custom" rows="3" placeholder="Contoh: Bawa berkas fisik & KTP asli saat wawancara jam 09.00 WIB."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer border-0 pt-0">
+          <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm" id="btnSimpanStatus" onclick="simpanEditAdmin()">Simpan Perubahan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL NOTIFIKASI UNIVERSAL -->
+  <div class="modal fade" id="modalAlertUniversal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content modal-content-modern text-center p-4">
+        <div id="alertIconHeader" class="modal-icon-header bg-warning text-white">
+          <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+        <h5 class="fw-bold mb-2" id="alertTitle">Perhatian</h5>
+        <p class="text-secondary small mb-4" id="alertMessage">Pesan notifikasi...</p>
+        <button type="button" class="btn btn-dark rounded-pill w-100 fw-bold py-2 shadow-sm" data-bs-dismiss="modal">Mengerti</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST SUKSES MODERN -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1100">
+    <div id="toastSuccess" class="toast toast-modern align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body fs-6 fw-semibold py-3 d-flex align-items-center gap-2">
+          <i class="fa-solid fa-circle-check fs-4"></i>
+          <span id="toastMessage">Lamaran Anda Berhasil Terkirim!</span>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="text-center text-muted py-4 border-top bg-white mt-auto">
+    <div class="container small">
+      <p class="mb-1">© 2026 Tim BKK SMKN 1 Semparuk. All Rights Reserved.</p>
+      <p class="mb-0">
+        <a href="https://smkn1semparuk.sch.id" target="_blank" class="text-decoration-none text-muted"><i class="fa-solid fa-globe me-1"></i>smkn1semparuk.sch.id</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- JS Libraries: Bootstrap 5 & AOS Scroll Animation -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    // Inisialisasi AOS Animation Engine
+    AOS.init({
+      once: true,
+      duration: 800,
+      easing: 'ease-out-cubic'
+    });
+
+    // URL GOOGLE APPS SCRIPT WEB APP
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbyGbxZu3QJ08biL_Z2sJ4CUj-oonhTjdmIWNvwU6RBq2xzEnxRL10_ebgczMEqGBTeAEQ/exec";
+
+    // DATA LOWONGAN KERJA
+    const DEFAULT_JOBS = [
+      { id: "1", perusahaan: "PT. TRANS HYBRID", posisi: "Teknisi CME (CIVIL, MECHANICAL, ELECTRICAL)", kualifikasi: "Kualifikasi: Jurusan Teknik Sipil, Mesin, Elektro" },
+      { id: "2", perusahaan: "PT. TRANS HYBRID", posisi: "Teknisi Fiber Optic", kualifikasi: "Kualifikasi: Jurusan Telekomunikasi / Jaringan / TKJ" },
+      { id: "3", perusahaan: "PT. TRANS HYBRID", posisi: "Teknisi Backbone", kualifikasi: "Kualifikasi: Jurusan Jaringan / Telekomunikasi" },
+      { id: "4", perusahaan: "PT. TRANS HYBRID", posisi: "Office Boy (OB)", kualifikasi: "Kualifikasi: Pria / Wanita, Jujur & Disiplin" },
+      { id: "5", perusahaan: "PT. TRANS HYBRID", posisi: "Admin Operasional", kualifikasi: "Kualifikasi: Menguasai Administrasi & Ms. Office" },
+      { id: "6", perusahaan: "PT. FAJAR KITA KUSUMA", posisi: "Mechanic", kualifikasi: "Kualifikasi: Bidang Mekanik / Otomotif" },
+      { id: "7", perusahaan: "PT. FAJAR KITA KUSUMA", posisi: "Welder", kualifikasi: "Kualifikasi: Memiliki Keahlian Pengelasan / Las" },
+      { id: "8", perusahaan: "PT. ANEKA MAKMUR SEJAHTERA (YAMAHA)", posisi: "Mechanic", kualifikasi: "Kualifikasi: Mekanik Otomotif Roda 2 (Sepeda Motor)" },
+      { id: "9", perusahaan: "PT. ASTRA DAIHATSU", posisi: "Mechanic", kualifikasi: "Kualifikasi: Mekanik Otomotif Roda 4 (Mobil)" }
+    ];
+
+    let allJobs = DEFAULT_JOBS;
+    let allAdminData = [];
+    let selectedJob = {};
+    let activeEditRowIndex = null;
+    let savedPin = "";
+
+    let modalKonfirmasi, modalEditAdmin, modalAlertUniversal, toastSuccess;
+
+    document.addEventListener("DOMContentLoaded", function() {
+      modalKonfirmasi = new bootstrap.Modal(document.getElementById('modalKonfirmasi'));
+      modalEditAdmin = new bootstrap.Modal(document.getElementById('modalEditAdmin'));
+      modalAlertUniversal = new bootstrap.Modal(document.getElementById('modalAlertUniversal'));
+      toastSuccess = new bootstrap.Toast(document.getElementById('toastSuccess'));
+
+      renderJobs(allJobs);
+      initParticlesCanvas();
+    });
+
+    /* ANIMASI CANVAS PARTIKEL TERAPUNG */
+    function initParticlesCanvas() {
+      const canvas = document.getElementById('particles-canvas');
+      const ctx = canvas.getContext('2d');
+
+      function resizeCanvas() {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      const particles = [];
+      const particleCount = 40;
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          radius: Math.random() * 2 + 1,
+          speedX: (Math.random() - 0.5) * 0.5,
+          speedY: (Math.random() - 0.5) * 0.5,
+          alpha: Math.random() * 0.5 + 0.2
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(p => {
+          p.x += p.speedX;
+          p.y += p.speedY;
+
+          if (p.x < 0) p.x = canvas.width;
+          if (p.x > canvas.width) p.x = 0;
+          if (p.y < 0) p.y = canvas.height;
+          if (p.y > canvas.height) p.y = 0;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+          ctx.fill();
+        });
+
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    function showModernAlert(title, message, type = 'warning') {
+      const headerIcon = document.getElementById('alertIconHeader');
+      document.getElementById('alertTitle').innerText = title;
+      document.getElementById('alertMessage').innerText = message;
+
+      if (type === 'danger' || type === 'error') {
+        headerIcon.className = 'modal-icon-header bg-danger text-white';
+        headerIcon.innerHTML = '<i class="fa-solid fa-circle-xmark"></i>';
+      } else if (type === 'info') {
+        headerIcon.className = 'modal-icon-header bg-info text-white';
+        headerIcon.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
+      } else {
+        headerIcon.className = 'modal-icon-header bg-warning text-white';
+        headerIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
+      }
+
+      modalAlertUniversal.show();
+    }
+
+    function showToast(message) {
+      document.getElementById('toastMessage').innerText = message;
+      toastSuccess.show();
+    }
+
+    function renderJobs(jobs) {
+      const jobList = document.getElementById('jobList');
+      document.getElementById('totalJobBadge').innerText = jobs.length;
+
+      if (!jobs || jobs.length === 0) {
+        jobList.innerHTML = `<div class="text-center py-5 text-muted" data-aos="fade-in"><i class="fa-solid fa-folder-open fa-2x mb-2"></i><br>Tidak ada posisi lowongan yang cocok.</div>`;
+        return;
+      }
+
+      let html = '';
+      jobs.forEach((job, idx) => {
+        html += `
+          <div class="job-card" data-aos="fade-up" data-aos-delay="${(idx % 5) * 100}">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+              <div>
+                <span class="badge-company-tag mb-2"><i class="fa-regular fa-building"></i> ${escapeHtml(job.perusahaan)}</span>
+                <h5 class="fw-bold mb-1 text-dark">${escapeHtml(job.posisi)}</h5>
+                <p class="text-muted small mb-0"><i class="fa-solid fa-circle-info me-1 text-primary"></i>${escapeHtml(job.kualifikasi)}</p>
+              </div>
+              <button class="btn btn-apply" onclick="bukaModalKonfirmasi('${job.id}')">
+                Lamar Posisi <i class="fa-solid fa-arrow-right ms-1"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      jobList.innerHTML = html;
+      AOS.refresh();
+    }
+
+    function filterJobs() {
+      const query = document.getElementById('searchBox').value.toLowerCase();
+      const filtered = allJobs.filter(job => 
+        job.perusahaan.toLowerCase().includes(query) || 
+        job.posisi.toLowerCase().includes(query) ||
+        job.kualifikasi.toLowerCase().includes(query)
+      );
+      renderJobs(filtered);
+    }
+
+    function bukaModalKonfirmasi(jobId) {
+      const nama = document.getElementById('nama').value.trim();
+      const alamat = document.getElementById('alamat').value.trim();
+
+      if (!nama || !alamat) {
+        showModernAlert('Data Diri Belum Lengkap', 'Harap isi Nama Lengkap dan Alamat Domisili Anda terlebih dahulu pada Step 1.', 'warning');
+        document.getElementById('nama').focus();
+        return;
+      }
+
+      selectedJob = allJobs.find(j => j.id == jobId);
+
+      document.getElementById('confNama').innerText = nama;
+      document.getElementById('confAlamat').innerText = alamat;
+      document.getElementById('confPerusahaan').innerText = selectedJob.perusahaan;
+      document.getElementById('confPosisi').innerText = selectedJob.posisi;
+
+      modalKonfirmasi.show();
+    }
+
+    function prosesKirim() {
+      const nama = document.getElementById('nama').value.trim();
+      const alamat = document.getElementById('alamat').value.trim();
+      const btnKirim = document.getElementById('btnKirim');
+
+      btnKirim.disabled = true;
+      btnKirim.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> Mengirim...`;
+
+      const payload = {
+        action: 'simpanPendaftaran',
+        nama: nama,
+        alamat: alamat,
+        perusahaan: selectedJob.perusahaan,
+        posisi: selectedJob.posisi
+      };
+
+      fetch(GAS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(() => {
+        btnKirim.disabled = false;
+        btnKirim.innerText = 'Kirim Sekarang';
+        modalKonfirmasi.hide();
+        showToast("Lamaran Anda Berhasil Terkirim!");
+      })
+      .catch(err => {
+        btnKirim.disabled = false;
+        btnKirim.innerText = 'Kirim Sekarang';
+        showModernAlert('Gagal Mengirim', 'Gagal mengirim lamaran. Silakan periksa koneksi internet Anda.', 'danger');
+      });
+    }
+
+    function toggleHalamanAdmin() {
+      const pagePelamar = document.getElementById('pagePelamar');
+      const pageAdmin = document.getElementById('pageAdmin');
+      const lblToggle = document.getElementById('lblToggle');
+
+      if (pagePelamar.classList.contains('d-none')) {
+        pagePelamar.classList.remove('d-none');
+        pageAdmin.classList.add('d-none');
+        lblToggle.innerText = 'Halaman Admin';
+      } else {
+        pagePelamar.classList.add('d-none');
+        pageAdmin.classList.remove('d-none');
+        lblToggle.innerText = 'Halaman Utama';
+      }
+      AOS.refresh();
+    }
+
+    function loginAdmin() {
+      const pin = document.getElementById('pinInput').value;
+      if (!pin) {
+        showModernAlert('PIN Wajib Diisi', 'Masukkan PIN Akses Admin terlebih dahulu!', 'warning');
+        return;
+      }
+      savedPin = pin;
+      fetchAdminData();
+    }
+
+    function fetchAdminData() {
+      fetch(`${GAS_URL}?action=getAdminData&pin=${encodeURIComponent(savedPin)}`)
+        .then(res => res.json())
+        .then(res => {
+          if (res.status === 'error') {
+            showModernAlert('Akses Ditolak', res.message || 'PIN Admin Salah!', 'danger');
+            return;
+          }
+          document.getElementById('adminAuthBox').classList.add('d-none');
+          document.getElementById('adminContent').classList.remove('d-none');
+
+          document.getElementById('statTotalPendaftar').innerText = res.totalPendaftar || 0;
+
+          allAdminData = res.data || [];
+          renderAdminTable(allAdminData);
+        })
+        .catch(err => {
+          showModernAlert('Gagal Memuat Data', 'Tidak dapat terhubung ke server. Pastikan PIN benar atau server online.', 'danger');
+        });
+    }
+
+    function renderAdminTable(data) {
+      const tbody = document.getElementById('adminTableBody');
+      if (!data || data.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="text-center text-muted py-4">Belum ada data pendaftaran yang masuk.</td></tr>`;
+        return;
+      }
+
+      let html = '';
+      data.forEach((item, index) => {
+        let statusBadge = `<span class="badge bg-warning text-dark"><i class="fa-solid fa-clock me-1"></i>Pending</span>`;
+        if (item.status === 'Diterima') {
+          statusBadge = `<span class="badge bg-success"><i class="fa-solid fa-circle-check me-1"></i>Diterima</span>`;
+        } else if (item.status === 'Ditolak') {
+          statusBadge = `<span class="badge bg-danger"><i class="fa-solid fa-circle-xmark me-1"></i>Ditolak</span>`;
+        }
+
+        html += `
+          <tr>
+            <td class="fw-bold">${index + 1}</td>
+            <td class="small text-muted">${escapeHtml(item.waktu)}</td>
+            <td>
+              <div class="fw-semibold text-dark">${escapeHtml(item.nama)}</div>
+              <div class="small text-muted"><i class="fa-solid fa-location-dot me-1 text-danger"></i>${escapeHtml(item.alamat)}</div>
+            </td>
+            <td>
+              <div class="fw-semibold text-primary">${escapeHtml(item.perusahaan)}</div>
+              <div class="small text-secondary">${escapeHtml(item.posisi)}</div>
+            </td>
+            <td>${statusBadge}</td>
+            <td><span class="small text-muted italic">${escapeHtml(item.catatan || '-')}</span></td>
+            <td class="text-center">
+              <button class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="bukaModalEditAdmin(${item.rowIndex})">
+                <i class="fa-solid fa-pen me-1"></i> Edit
+              </button>
+            </td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = html;
+    }
+
+    function bukaModalEditAdmin(rowIndex) {
+      const item = allAdminData.find(d => d.rowIndex == rowIndex);
+      if (!item) return;
+
+      activeEditRowIndex = rowIndex;
+      document.getElementById('editNamaPelamar').innerText = item.nama;
+      document.getElementById('editDetailLamaran').innerText = `${item.perusahaan} - ${item.posisi}`;
+      document.getElementById('editStatusSelect').value = item.status || 'Pending';
+      document.getElementById('editCatatanInput').value = item.catatan === '-' ? '' : (item.catatan || '');
+
+      modalEditAdmin.show();
+    }
+
+    function simpanEditAdmin() {
+      const btnSimpan = document.getElementById('btnSimpanStatus');
+      const statusVal = document.getElementById('editStatusSelect').value;
+      const catatanVal = document.getElementById('editCatatanInput').value.trim() || '-';
+
+      btnSimpan.disabled = true;
+      btnSimpan.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> Menyimpan...`;
+
+      const payload = {
+        action: 'updateStatusCatatan',
+        rowIndex: activeEditRowIndex,
+        status: statusVal,
+        catatan: catatanVal,
+        pin: savedPin
+      };
+
+      fetch(GAS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.json())
+      .then(res => {
+        btnSimpan.disabled = false;
+        btnSimpan.innerText = 'Simpan Perubahan';
+
+        if (res.status === 'success') {
+          modalEditAdmin.hide();
+          showToast("Status & Catatan Berhasil Diperbarui!");
+          fetchAdminData();
+        } else {
+          showModernAlert('Gagal', res.message || 'Gagal menyimpan data.', 'danger');
+        }
+      })
+      .catch(err => {
+        btnSimpan.disabled = false;
+        btnSimpan.innerText = 'Simpan Perubahan';
+        showModernAlert('Error', 'Terjadi kesalahan sistem/jaringan.', 'danger');
+      });
+    }
+
+    function filterAdminTable() {
+      const query = document.getElementById('adminSearchBox').value.toLowerCase();
+      const filtered = allAdminData.filter(item => 
+        item.nama.toLowerCase().includes(query) ||
+        item.perusahaan.toLowerCase().includes(query) ||
+        item.posisi.toLowerCase().includes(query) ||
+        item.alamat.toLowerCase().includes(query) ||
+        (item.status && item.status.toLowerCase().includes(query))
+      );
+      renderAdminTable(filtered);
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+  </script>
+</body>
+</html>
