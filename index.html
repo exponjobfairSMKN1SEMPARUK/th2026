@@ -8,39 +8,57 @@
   <!-- Bootstrap 5, Font Awesome & Google Fonts -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   
-  <!-- AOS (Animate On Scroll) Library CSS -->
+  <!-- AOS Animation Library -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <style>
     :root {
-      --primary-gradient: linear-gradient(135deg, #0b1329 0%, #1e293b 50%, #0284c7 100%);
-      --accent-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-      --card-bg: #ffffff;
-      --bg-body: #f8fafc;
-      --text-main: #0f172a;
+      --primary-purple: #4c1d95;
+      --accent-purple: #7c3aed;
+      --glow-purple: #a855f7;
+      --amber-gold: #f59e0b;
+      --bg-dark-purple: #0f0728;
+      --bg-body: #0b051d;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(168, 85, 247, 0.25);
+      --text-light: #f3e8ff;
     }
 
     body {
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: var(--bg-body);
-      color: var(--text-main);
+      color: var(--text-light);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
     }
 
-    /* Hero Banner Dynamic Canvas */
+    /* KURSOR NEON FOLLOW MOUSE */
+    .cursor-glow {
+      position: fixed;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.18) 0%, rgba(0,0,0,0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      transition: transform 0.05s ease-out;
+    }
+
+    /* HERO BANNER ULTRA GLASSMORPHISM */
     .hero-banner {
-      background: var(--primary-gradient);
+      background: radial-gradient(circle at 50% 20%, #2e1065 0%, #150a33 60%, #0b051d 100%);
       color: #ffffff;
-      padding: 3.5rem 1rem 5.5rem 1rem;
-      border-radius: 0 0 48px 48px;
+      padding: 4rem 1rem 6rem 1rem;
+      border-radius: 0 0 55px 55px;
       position: relative;
-      box-shadow: 0 20px 45px rgba(15, 23, 42, 0.25);
+      box-shadow: 0 25px 60px rgba(124, 58, 237, 0.25);
       overflow: hidden;
+      border-bottom: 1px solid var(--glass-border);
     }
 
     #particles-canvas {
@@ -53,105 +71,117 @@
       pointer-events: none;
     }
 
-    /* Slot Logo Job Fair dengan Animasi Floating & 3D Tilt */
+    /* LOGO JOB FAIR WITH GLOWING RING */
     .brand-logo-wrapper {
       position: relative;
       display: inline-block;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
       z-index: 2;
-      perspective: 1000px;
+      background: rgba(255, 255, 255, 0.96);
+      padding: 20px 32px;
+      border-radius: 30px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(168, 85, 247, 0.6);
+      backdrop-filter: blur(15px);
+      transition: all 0.4s ease;
+    }
+
+    .brand-logo-wrapper:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 45px rgba(245, 158, 11, 0.8);
     }
 
     .brand-logo-img {
-      max-height: 110px;
+      max-height: 130px;
       width: auto;
       object-fit: contain;
-      filter: drop-shadow(0 12px 25px rgba(0, 0, 0, 0.4));
       animation: float 4s ease-in-out infinite;
-      transition: transform 0.3s ease;
     }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(1deg); }
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
     }
 
     .hero-badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: rgba(245, 158, 11, 0.18);
-      border: 1px solid rgba(245, 158, 11, 0.4);
+      gap: 10px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.6);
       color: #fbbf24;
-      padding: 8px 20px;
+      padding: 10px 24px;
       border-radius: 50px;
-      font-weight: 700;
-      font-size: 0.825rem;
+      font-weight: 800;
+      font-size: 0.85rem;
       text-transform: uppercase;
-      letter-spacing: 0.8px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+      letter-spacing: 1px;
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.3);
       animation: pulseGlow 2s infinite alternate;
     }
 
     @keyframes pulseGlow {
-      0% { box-shadow: 0 0 10px rgba(245, 158, 11, 0.2); }
-      100% { box-shadow: 0 0 22px rgba(245, 158, 11, 0.5); }
+      0% { box-shadow: 0 0 12px rgba(245, 158, 11, 0.3); }
+      100% { box-shadow: 0 0 30px rgba(245, 158, 11, 0.8); }
     }
 
     .hero-title {
-      font-weight: 800;
-      font-size: 2.25rem;
-      letter-spacing: -0.8px;
-      line-height: 1.2;
-      background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+      font-weight: 900;
+      font-size: 2.5rem;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      background: linear-gradient(180deg, #ffffff 0%, #d8b4fe 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      text-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
     }
 
     @media (min-width: 768px) {
-      .hero-title { font-size: 3.25rem; }
+      .hero-title { font-size: 3.5rem; }
     }
 
     .info-pill {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.07);
       border: 1px solid rgba(255, 255, 255, 0.18);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(15px);
       border-radius: 50px;
-      padding: 10px 22px;
-      font-size: 0.875rem;
-      color: #f1f5f9;
+      padding: 12px 24px;
+      font-size: 0.9rem;
+      color: #f3e8ff;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
       transition: all 0.3s ease;
     }
 
     .info-pill:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(168, 85, 247, 0.25);
+      border-color: var(--glow-purple);
       transform: translateY(-3px);
     }
 
-    /* Card Interactive Animation */
+    /* CARD GLASSMORPHISM UNGU MEWAH */
     .card-modern {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 24px;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
-      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(23, 11, 46, 0.7);
+      border: 1px solid var(--glass-border);
+      border-radius: 28px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .card-modern:hover {
-      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+      box-shadow: 0 25px 50px rgba(124, 58, 237, 0.25);
+      border-color: var(--glow-purple);
       transform: translateY(-4px);
     }
 
     .job-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-left: 5px solid #0284c7;
-      border-radius: 20px;
-      padding: 1.5rem;
+      background: rgba(30, 15, 61, 0.6);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      border-left: 6px solid var(--accent-purple);
+      border-radius: 22px;
+      padding: 1.6rem;
       transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
@@ -164,7 +194,7 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(2, 132, 199, 0.05), transparent);
+      background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.15), transparent);
       transition: left 0.6s ease;
     }
 
@@ -173,52 +203,45 @@
     }
 
     .job-card:hover {
-      transform: translateY(-5px) scale(1.008);
-      box-shadow: 0 15px 30px rgba(2, 132, 199, 0.15);
-      border-color: #93c5fd;
-      border-left-color: #0284c7;
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
+      border-color: var(--glow-purple);
+      border-left-color: #c084fc;
+      background: rgba(40, 20, 80, 0.85);
     }
 
     .badge-company-tag {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.6px;
       text-transform: uppercase;
-      padding: 6px 14px;
-      border-radius: 10px;
-      background-color: #f0f9ff;
-      color: #0284c7;
-      border: 1px solid #bae6fd;
+      padding: 7px 16px;
+      border-radius: 12px;
+      background: rgba(124, 58, 237, 0.2);
+      color: #c084fc;
+      border: 1px solid rgba(192, 132, 252, 0.4);
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      transition: all 0.3s ease;
+      gap: 8px;
     }
 
-    .job-card:hover .badge-company-tag {
-      background-color: #0284c7;
-      color: #ffffff;
-    }
-
-    /* Button Ripple & Interactive State */
+    /* BUTTON GLOW NEON */
     .btn-apply {
-      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
       color: white;
-      font-weight: 700;
+      font-weight: 800;
       border: none;
-      padding: 10px 24px;
+      padding: 12px 28px;
       border-radius: 50px;
-      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
     }
 
     .btn-apply:hover {
-      background: linear-gradient(135deg, #0369a1 0%, #075985 100%);
+      background: linear-gradient(135deg, #a855f7 0%, #6d28d9 100%);
       color: white;
-      box-shadow: 0 8px 25px rgba(2, 132, 199, 0.5);
-      transform: translateY(-2px);
+      box-shadow: 0 0 35px rgba(168, 85, 247, 0.8);
+      transform: translateY(-3px) scale(1.03);
     }
 
     .btn-admin-top {
@@ -229,10 +252,10 @@
       border: 1px solid rgba(255, 255, 255, 0.25);
       color: white;
       border-radius: 50px;
-      padding: 8px 18px;
+      padding: 10px 20px;
       font-size: 0.85rem;
-      font-weight: 600;
-      backdrop-filter: blur(10px);
+      font-weight: 700;
+      backdrop-filter: blur(15px);
       transition: all 0.3s ease;
       z-index: 10;
     }
@@ -240,83 +263,73 @@
     .btn-admin-top:hover {
       background: rgba(255, 255, 255, 0.3);
       color: white;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
       transform: scale(1.05);
     }
 
     .form-control-custom, .form-select-custom {
-      border: 1.5px solid #e2e8f0;
-      border-radius: 14px;
-      padding: 12px 18px;
+      background: rgba(15, 7, 40, 0.6);
+      border: 1.5px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 14px 20px;
       font-size: 0.95rem;
+      color: #ffffff;
       transition: all 0.3s ease;
+    }
+
+    .form-control-custom::placeholder {
+      color: #94a3b8;
     }
 
     .form-control-custom:focus, .form-select-custom:focus {
-      border-color: #0284c7;
-      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
-      transform: translateY(-1px);
-    }
-
-    .icon-box {
-      width: 46px;
-      height: 46px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      transition: all 0.3s ease;
-    }
-
-    .card-modern:hover .icon-box {
-      transform: rotate(8deg) scale(1.1);
+      background: rgba(20, 10, 50, 0.85);
+      border-color: var(--glow-purple);
+      box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+      color: #ffffff;
     }
 
     .step-number {
-      width: 36px;
-      height: 36px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      background: linear-gradient(135deg, #a855f7 0%, #6d28d9 100%);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 800;
-      font-size: 0.95rem;
-      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35);
+      font-weight: 900;
+      font-size: 1.1rem;
+      box-shadow: 0 0 18px rgba(168, 85, 247, 0.6);
     }
 
-    /* Modal Modern */
+    /* MODAL ULTRA MODERN */
     .modal-content-modern {
-      border: none;
-      border-radius: 28px;
-      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.25);
-      overflow: hidden;
+      background: #13092d;
+      border: 1px solid var(--glass-border);
+      border-radius: 32px;
+      color: #ffffff;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
     }
 
     .modal-icon-header {
-      width: 70px;
-      height: 70px;
+      width: 75px;
+      height: 75px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
-      margin: -35px auto 1rem auto;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-    }
-
-    .toast-modern {
-      border-radius: 18px;
-      border: none;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-      backdrop-filter: blur(10px);
+      font-size: 2.2rem;
+      margin: -40px auto 1rem auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
   </style>
 </head>
 <body>
 
-  <!-- HERO BANNER DENGAN CANVAS ANIMASI PARTIKEL -->
+  <!-- EFEK NEON LIGHT FOLLOW MOUSE -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- HERO BANNER DENGAN CANVAS ANIMASI PARTIKEL & LOGO TERPASANG -->
   <header class="hero-banner text-center position-relative">
     <canvas id="particles-canvas"></canvas>
 
@@ -326,9 +339,9 @@
 
     <div class="container position-relative" style="z-index: 2;">
       
-      <!-- SLOT LOGO JOB FAIR EXPO DENGAN EFEK 3D TILT & FLOATING -->
+      <!-- LOGO EXPO JOB FAIR -->
       <div class="brand-logo-wrapper" data-aos="zoom-in" data-aos-duration="1000">
-        <img src="logo-jobfair.png" alt="Logo Job Fair Expo 2026" class="brand-logo-img" onerror="this.style.display='none'">
+        <img src="logo expo 2.png" alt="Logo Job Fair Expo 2026 SMKN 1 Semparuk" class="brand-logo-img">
       </div>
 
       <div class="mb-3" data-aos="fade-down" data-aos-delay="200">
@@ -349,7 +362,7 @@
       </div>
 
       <div class="d-flex justify-content-center gap-3 flex-wrap" data-aos="fade-up" data-aos-delay="600">
-        <a href="#sectionDaftar" class="btn btn-warning rounded-pill px-4 py-2.5 fw-bold text-dark shadow-sm btn-hover-effect">
+        <a href="#sectionDaftar" class="btn btn-warning rounded-pill px-4 py-2.5 fw-bold text-dark shadow-lg">
           <i class="fa-solid fa-paper-plane me-2"></i>Daftar Sekarang
         </a>
         <a href="https://smkn1semparuk.sch.id" target="_blank" class="btn btn-outline-light rounded-pill px-4 py-2.5 fw-semibold">
@@ -368,16 +381,16 @@
       <div class="col-md-6" data-aos="fade-right" data-aos-duration="800">
         <div class="card-modern p-4 h-100">
           <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="icon-box bg-primary bg-opacity-10 text-primary">
+            <div class="step-number" style="width:45px; height:45px;">
               <i class="fa-solid fa-clipboard-check"></i>
             </div>
-            <h6 class="fw-bold mb-0 fs-5 text-dark">Persyaratan Umum</h6>
+            <h6 class="fw-bold mb-0 fs-5 text-white">Persyaratan Umum</h6>
           </div>
-          <ul class="list-unstyled mb-0 small lh-lg text-secondary">
-            <li class="mb-1"><i class="fa-solid fa-circle-check text-success me-2"></i>Surat Lamaran Kerja & CV Terbaru</li>
-            <li class="mb-1"><i class="fa-solid fa-circle-check text-success me-2"></i>Fotokopi KTP & Ijazah Terakhir</li>
-            <li class="mb-1"><i class="fa-solid fa-circle-check text-success me-2"></i>Pas Foto Terbaru Ukuran 3x4</li>
-            <li><i class="fa-solid fa-circle-check text-success me-2"></i>Berpakaian Bebas, Rapi, & Sopan</li>
+          <ul class="list-unstyled mb-0 small lh-lg text-white-50">
+            <li class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>Surat Lamaran Kerja & CV Terbaru</li>
+            <li class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>Fotokopi KTP & Ijazah Terakhir</li>
+            <li class="mb-1"><i class="fa-solid fa-circle-check text-warning me-2"></i>Pas Foto Terbaru Ukuran 3x4</li>
+            <li><i class="fa-solid fa-circle-check text-warning me-2"></i>Berpakaian Bebas, Rapi, & Sopan</li>
           </ul>
         </div>
       </div>
@@ -386,16 +399,16 @@
       <div class="col-md-6" data-aos="fade-left" data-aos-duration="800">
         <div class="card-modern p-4 h-100">
           <div class="d-flex align-items-center gap-3 mb-3">
-            <div class="icon-box bg-warning bg-opacity-10 text-warning">
+            <div class="step-number" style="width:45px; height:45px; background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); shadow: 0 0 15px rgba(245,158,11,0.5);">
               <i class="fa-solid fa-building"></i>
             </div>
-            <h6 class="fw-bold mb-0 fs-5 text-dark">Perusahaan Partisipan</h6>
+            <h6 class="fw-bold mb-0 fs-5 text-white">Perusahaan Partisipan</h6>
           </div>
           <div class="d-flex flex-wrap gap-2">
-            <span class="badge bg-light text-dark border p-2"><i class="fa-solid fa-network-wired text-primary me-1"></i> PT. TRANS HYBRID</span>
-            <span class="badge bg-light text-dark border p-2"><i class="fa-solid fa-industry text-warning me-1"></i> PT. FAJAR KITA KUSUMA</span>
-            <span class="badge bg-light text-dark border p-2"><i class="fa-solid fa-motorcycle text-danger me-1"></i> PT. ANEKA MAKMUR SEJAHTERA</span>
-            <span class="badge bg-light text-dark border p-2"><i class="fa-solid fa-car text-success me-1"></i> PT. ASTRA DAIHATSU</span>
+            <span class="badge bg-dark text-white border border-purple p-2"><i class="fa-solid fa-network-wired text-info me-1"></i> PT. TRANS HYBRID</span>
+            <span class="badge bg-dark text-white border border-purple p-2"><i class="fa-solid fa-industry text-warning me-1"></i> PT. FAJAR KITA KUSUMA</span>
+            <span class="badge bg-dark text-white border border-purple p-2"><i class="fa-solid fa-motorcycle text-danger me-1"></i> PT. ANEKA MAKMUR SEJAHTERA</span>
+            <span class="badge bg-dark text-white border border-purple p-2"><i class="fa-solid fa-car text-success me-1"></i> PT. ASTRA DAIHATSU</span>
           </div>
         </div>
       </div>
@@ -408,15 +421,15 @@
       <div class="card-modern p-4 mb-4" data-aos="fade-up" data-aos-duration="800">
         <div class="d-flex align-items-center gap-3 mb-3">
           <div class="step-number">1</div>
-          <h5 class="fw-bold mb-0 text-dark">Isi Data Diri Pelamar</h5>
+          <h5 class="fw-bold mb-0 text-white">Isi Data Diri Pelamar</h5>
         </div>
         <div class="row g-3">
           <div class="col-md-6">
-            <label class="form-label fw-semibold text-secondary small">Nama Lengkap *</label>
+            <label class="form-label fw-semibold text-white-50 small">Nama Lengkap *</label>
             <input type="text" class="form-control form-control-custom" id="nama" placeholder="Contoh: Budi Santoso" required>
           </div>
           <div class="col-md-6">
-            <label class="form-label fw-semibold text-secondary small">Alamat Domisili *</label>
+            <label class="form-label fw-semibold text-white-50 small">Alamat Domisili *</label>
             <input type="text" class="form-control form-control-custom" id="alamat" placeholder="Contoh: Semparuk, Sambas" required>
           </div>
         </div>
@@ -427,22 +440,22 @@
         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
           <div class="d-flex align-items-center gap-3">
             <div class="step-number">2</div>
-            <h5 class="fw-bold mb-0 text-dark">Pilih Lowongan Pekerjaan (Job Field)</h5>
+            <h5 class="fw-bold mb-0 text-white">Pilih Lowongan Pekerjaan (Job Field)</h5>
           </div>
-          <span class="badge bg-info bg-opacity-10 text-info fw-bold px-3 py-2 rounded-pill border border-info border-opacity-25">
+          <span class="badge bg-purple-light text-warning fw-bold px-3 py-2 rounded-pill border" style="background: rgba(124, 58, 237, 0.2); border-color: rgba(168, 85, 247, 0.4);">
             <i class="fa-solid fa-briefcase me-1"></i> <span id="totalJobBadge">9</span> Lowongan Tersedia
           </span>
         </div>
 
         <!-- Filter Search Box -->
         <div class="input-group mb-4">
-          <span class="input-group-text bg-light border-end-0 text-muted ps-3"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <span class="input-group-text bg-dark border-end-0 text-muted ps-3" style="border-color: var(--glass-border);"><i class="fa-solid fa-magnifying-glass"></i></span>
           <input type="text" id="searchBox" class="form-control form-control-custom border-start-0 ps-0" placeholder="Cari posisi (Mechanic, Welder, Admin, CME, FO...)" onkeyup="filterJobs()">
         </div>
 
         <!-- Container Daftar Lowongan -->
         <div id="jobList" class="d-flex flex-column gap-3">
-          <!-- Render otomatis dari JS dengan Animasi -->
+          <!-- Render otomatis dari JS -->
         </div>
       </div>
 
@@ -453,20 +466,20 @@
   <div id="pageAdmin" class="container my-5 d-none" style="max-width: 1000px;">
     <!-- Box Login PIN Admin -->
     <div id="adminAuthBox" class="card-modern p-4 text-center mx-auto my-5" style="max-width: 380px;">
-      <div class="icon-box bg-primary bg-opacity-10 text-primary mx-auto mb-3" style="width: 55px; height: 55px; font-size: 1.5rem;">
+      <div class="step-number mx-auto mb-3" style="width: 55px; height: 55px; font-size: 1.5rem;">
         <i class="fa-solid fa-lock"></i>
       </div>
-      <h5 class="fw-bold mb-1">Akses Dashboard Admin</h5>
-      <p class="text-muted small mb-3">Masukkan PIN Keamanan (Default: <strong>1234</strong>)</p>
+      <h5 class="fw-bold mb-1 text-white">Akses Dashboard Admin</h5>
+      <p class="text-white-50 small mb-3">Masukkan PIN Keamanan (Default: <strong>1234</strong>)</p>
       <input type="password" id="pinInput" class="form-control form-control-custom text-center mb-3 fs-4 fw-bold" placeholder="••••" style="letter-spacing: 6px;">
-      <button class="btn btn-primary w-100 fw-bold py-2.5 rounded-pill shadow-sm" onclick="loginAdmin()">Masuk Dashboard</button>
+      <button class="btn btn-apply w-100 fw-bold py-2.5 rounded-pill shadow-lg" onclick="loginAdmin()">Masuk Dashboard</button>
     </div>
 
     <!-- Content Admin Dashboard -->
     <div id="adminContent" class="d-none">
       <div class="row g-3 mb-4">
         <div class="col-md-6">
-          <div class="card-modern p-4 bg-primary text-white">
+          <div class="card-modern p-4 text-white" style="background: linear-gradient(135deg, #6d28d9 0%, #4c1d95 100%);">
             <div class="d-flex justify-content-between align-items-center">
               <div>
                 <span class="opacity-75 small text-uppercase fw-semibold">Total Pelamar Masuk</span>
@@ -477,7 +490,7 @@
           </div>
         </div>
         <div class="col-md-6">
-          <div class="card-modern p-4 bg-success text-white">
+          <div class="card-modern p-4 text-white" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">
             <div class="d-flex justify-content-between align-items-center">
               <div>
                 <span class="opacity-75 small text-uppercase fw-semibold">Total Job Field Tersedia</span>
@@ -491,18 +504,18 @@
 
       <div class="card-modern p-4">
         <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-          <h5 class="fw-bold text-dark mb-0"><i class="fa-solid fa-list-check me-2 text-primary"></i>Kelola Status & Catatan Pelamar</h5>
-          <button class="btn btn-outline-primary btn-sm rounded-pill px-3" onclick="fetchAdminData()"><i class="fa-solid fa-rotate me-1"></i> Sync Data</button>
+          <h5 class="fw-bold text-white mb-0"><i class="fa-solid fa-list-check me-2 text-warning"></i>Kelola Status & Catatan Pelamar</h5>
+          <button class="btn btn-outline-light btn-sm rounded-pill px-3" onclick="fetchAdminData()"><i class="fa-solid fa-rotate me-1"></i> Sync Data</button>
         </div>
 
         <div class="input-group mb-3">
-          <span class="input-group-text bg-light border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+          <span class="input-group-text bg-dark border-end-0" style="border-color: var(--glass-border);"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
           <input type="text" id="adminSearchBox" class="form-control form-control-custom border-start-0" placeholder="Cari nama pelamar, perusahaan, posisi, atau status..." onkeyup="filterAdminTable()">
         </div>
 
         <div class="table-responsive">
-          <table class="table table-hover align-middle">
-            <thead class="table-light">
+          <table class="table table-dark table-hover align-middle">
+            <thead>
               <tr>
                 <th>No</th>
                 <th>Waktu</th>
@@ -522,27 +535,27 @@
     </div>
   </div>
 
-  <!-- MODAL KONFIRMASI LAMARAN (PELAMAR) -->
+  <!-- MODAL KONFIRMASI LAMARAN -->
   <div class="modal fade" id="modalKonfirmasi" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-content-modern p-3">
         <div class="modal-header border-0 pb-0">
-          <h5 class="modal-title fw-bold text-primary"><i class="fa-solid fa-paper-plane me-2"></i>Konfirmasi Kirim Lamaran</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title fw-bold text-warning"><i class="fa-solid fa-paper-plane me-2"></i>Konfirmasi Kirim Lamaran</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body py-3">
-          <p class="text-muted small mb-3">Periksa kembali data Anda sebelum dikirimkan ke sistem:</p>
-          <div class="p-3 rounded-4 bg-light border">
-            <div class="mb-2"><strong>Nama Pelamar:</strong> <span id="confNama" class="text-primary fw-bold"></span></div>
-            <div class="mb-2"><strong>Alamat Domisili:</strong> <span id="confAlamat" class="text-dark"></span></div>
-            <hr class="my-2">
-            <div class="mb-1"><strong>Perusahaan Tujuan:</strong> <span id="confPerusahaan" class="fw-bold"></span></div>
-            <div><strong>Posisi Lowongan:</strong> <span id="confPosisi" class="badge bg-primary fs-6 mt-1"></span></div>
+          <p class="text-white-50 small mb-3">Periksa kembali data Anda sebelum dikirimkan ke sistem:</p>
+          <div class="p-3 rounded-4 bg-dark border border-purple">
+            <div class="mb-2"><strong>Nama Pelamar:</strong> <span id="confNama" class="fw-bold text-warning"></span></div>
+            <div class="mb-2"><strong>Alamat Domisili:</strong> <span id="confAlamat" class="text-white"></span></div>
+            <hr class="my-2 border-purple">
+            <div class="mb-1"><strong>Perusahaan Tujuan:</strong> <span id="confPerusahaan" class="fw-bold text-info"></span></div>
+            <div><strong>Posisi Lowongan:</strong> <span id="confPosisi" class="badge fs-6 mt-1 bg-purple"></span></div>
           </div>
         </div>
         <div class="modal-footer border-0 pt-0">
-          <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm" id="btnKirim" onclick="prosesKirim()">Kirim Sekarang</button>
+          <button type="button" class="btn btn-outline-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-apply rounded-pill px-4 fw-bold shadow-lg" id="btnKirim" onclick="prosesKirim()">Kirim Sekarang</button>
         </div>
       </div>
     </div>
@@ -553,17 +566,17 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content modal-content-modern p-3">
         <div class="modal-header border-0 pb-0">
-          <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-pen-to-square me-2 text-primary"></i>Update Status & Catatan</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title fw-bold text-white"><i class="fa-solid fa-pen-to-square me-2 text-warning"></i>Update Status & Catatan</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body py-3">
-          <div class="p-3 bg-light rounded-4 mb-3">
-            <div class="fw-bold text-dark" id="editNamaPelamar">-</div>
-            <div class="small text-muted" id="editDetailLamaran">-</div>
+          <div class="p-3 bg-dark rounded-4 mb-3 border border-purple">
+            <div class="fw-bold text-warning" id="editNamaPelamar">-</div>
+            <div class="small text-white-50" id="editDetailLamaran">-</div>
           </div>
           
           <div class="mb-3">
-            <label class="form-label fw-semibold text-secondary small">Status Konfirmasi *</label>
+            <label class="form-label fw-semibold text-white-50 small">Status Konfirmasi *</label>
             <select id="editStatusSelect" class="form-select form-select-custom fw-semibold">
               <option value="Pending">🟡 Pending / Menunggu</option>
               <option value="Diterima">🟢 Diterima / Lolos Berkas</option>
@@ -572,13 +585,13 @@
           </div>
 
           <div class="mb-2">
-            <label class="form-label fw-semibold text-secondary small">Catatan Admin</label>
+            <label class="form-label fw-semibold text-white-50 small">Catatan Admin</label>
             <textarea id="editCatatanInput" class="form-control form-control-custom" rows="3" placeholder="Contoh: Bawa berkas fisik & KTP asli saat wawancara jam 09.00 WIB."></textarea>
           </div>
         </div>
         <div class="modal-footer border-0 pt-0">
-          <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm" id="btnSimpanStatus" onclick="simpanEditAdmin()">Simpan Perubahan</button>
+          <button type="button" class="btn btn-outline-light rounded-pill px-4" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-apply rounded-pill px-4 fw-bold shadow-lg" id="btnSimpanStatus" onclick="simpanEditAdmin()">Simpan Perubahan</button>
         </div>
       </div>
     </div>
@@ -588,12 +601,12 @@
   <div class="modal fade" id="modalAlertUniversal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content modal-content-modern text-center p-4">
-        <div id="alertIconHeader" class="modal-icon-header bg-warning text-white">
+        <div id="alertIconHeader" class="modal-icon-header bg-warning text-dark">
           <i class="fa-solid fa-circle-exclamation"></i>
         </div>
-        <h5 class="fw-bold mb-2" id="alertTitle">Perhatian</h5>
-        <p class="text-secondary small mb-4" id="alertMessage">Pesan notifikasi...</p>
-        <button type="button" class="btn btn-dark rounded-pill w-100 fw-bold py-2 shadow-sm" data-bs-dismiss="modal">Mengerti</button>
+        <h5 class="fw-bold mb-2 text-white" id="alertTitle">Perhatian</h5>
+        <p class="text-white-50 small mb-4" id="alertMessage">Pesan notifikasi...</p>
+        <button type="button" class="btn btn-light rounded-pill w-100 fw-bold py-2 shadow-lg" data-bs-dismiss="modal">Mengerti</button>
       </div>
     </div>
   </div>
@@ -612,31 +625,31 @@
   </div>
 
   <!-- FOOTER -->
-  <footer class="text-center text-muted py-4 border-top bg-white mt-auto">
+  <footer class="text-center text-white-50 py-4 border-top border-purple bg-dark mt-auto">
     <div class="container small">
       <p class="mb-1">© 2026 Tim BKK SMKN 1 Semparuk. All Rights Reserved.</p>
       <p class="mb-0">
-        <a href="https://smkn1semparuk.sch.id" target="_blank" class="text-decoration-none text-muted"><i class="fa-solid fa-globe me-1"></i>smkn1semparuk.sch.id</a>
+        <a href="https://smkn1semparuk.sch.id" target="_blank" class="text-decoration-none text-white-50"><i class="fa-solid fa-globe me-1"></i>smkn1semparuk.sch.id</a>
       </p>
     </div>
   </footer>
 
-  <!-- JS Libraries: Bootstrap 5 & AOS Scroll Animation -->
+  <!-- JS Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
   <script>
-    // Inisialisasi AOS Animation Engine
-    AOS.init({
-      once: true,
-      duration: 800,
-      easing: 'ease-out-cubic'
+    AOS.init({ once: true, duration: 800, easing: 'ease-out-cubic' });
+
+    // EFEK KURSOR MOUSE NEON LIGHT
+    const cursorGlow = document.getElementById('cursorGlow');
+    document.addEventListener('mousemove', (e) => {
+      cursorGlow.style.left = e.clientX + 'px';
+      cursorGlow.style.top = e.clientY + 'px';
     });
 
-    // URL GOOGLE APPS SCRIPT WEB APP
     const GAS_URL = "https://script.google.com/macros/s/AKfycbyGbxZu3QJ08biL_Z2sJ4CUj-oonhTjdmIWNvwU6RBq2xzEnxRL10_ebgczMEqGBTeAEQ/exec";
 
-    // DATA LOWONGAN KERJA
     const DEFAULT_JOBS = [
       { id: "1", perusahaan: "PT. TRANS HYBRID", posisi: "Teknisi CME (CIVIL, MECHANICAL, ELECTRICAL)", kualifikasi: "Kualifikasi: Jurusan Teknik Sipil, Mesin, Elektro" },
       { id: "2", perusahaan: "PT. TRANS HYBRID", posisi: "Teknisi Fiber Optic", kualifikasi: "Kualifikasi: Jurusan Telekomunikasi / Jaringan / TKJ" },
@@ -667,7 +680,7 @@
       initParticlesCanvas();
     });
 
-    /* ANIMASI CANVAS PARTIKEL TERAPUNG */
+    /* ANIMASI CANVAS PARTIKEL TERAPUNG NEON */
     function initParticlesCanvas() {
       const canvas = document.getElementById('particles-canvas');
       const ctx = canvas.getContext('2d');
@@ -680,16 +693,17 @@
       window.addEventListener('resize', resizeCanvas);
 
       const particles = [];
-      const particleCount = 40;
+      const particleCount = 55;
 
       for (let i = 0; i < particleCount; i++) {
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          radius: Math.random() * 2 + 1,
+          radius: Math.random() * 2.8 + 1,
           speedX: (Math.random() - 0.5) * 0.5,
           speedY: (Math.random() - 0.5) * 0.5,
-          alpha: Math.random() * 0.5 + 0.2
+          color: Math.random() > 0.4 ? 'rgba(168, 85, 247, ' : 'rgba(251, 191, 36, ',
+          alpha: Math.random() * 0.6 + 0.2
         });
       }
 
@@ -707,7 +721,7 @@
 
           ctx.beginPath();
           ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+          ctx.fillStyle = `${p.color}${p.alpha})`;
           ctx.fill();
         });
 
@@ -728,7 +742,7 @@
         headerIcon.className = 'modal-icon-header bg-info text-white';
         headerIcon.innerHTML = '<i class="fa-solid fa-circle-info"></i>';
       } else {
-        headerIcon.className = 'modal-icon-header bg-warning text-white';
+        headerIcon.className = 'modal-icon-header bg-warning text-dark';
         headerIcon.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i>';
       }
 
@@ -756,8 +770,8 @@
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
               <div>
                 <span class="badge-company-tag mb-2"><i class="fa-regular fa-building"></i> ${escapeHtml(job.perusahaan)}</span>
-                <h5 class="fw-bold mb-1 text-dark">${escapeHtml(job.posisi)}</h5>
-                <p class="text-muted small mb-0"><i class="fa-solid fa-circle-info me-1 text-primary"></i>${escapeHtml(job.kualifikasi)}</p>
+                <h5 class="fw-bold mb-1 text-white">${escapeHtml(job.posisi)}</h5>
+                <p class="text-white-50 small mb-0"><i class="fa-solid fa-circle-info me-1 text-warning"></i>${escapeHtml(job.kualifikasi)}</p>
               </div>
               <button class="btn btn-apply" onclick="bukaModalKonfirmasi('${job.id}')">
                 Lamar Posisi <i class="fa-solid fa-arrow-right ms-1"></i>
@@ -902,19 +916,19 @@
         html += `
           <tr>
             <td class="fw-bold">${index + 1}</td>
-            <td class="small text-muted">${escapeHtml(item.waktu)}</td>
+            <td class="small text-white-50">${escapeHtml(item.waktu)}</td>
             <td>
-              <div class="fw-semibold text-dark">${escapeHtml(item.nama)}</div>
-              <div class="small text-muted"><i class="fa-solid fa-location-dot me-1 text-danger"></i>${escapeHtml(item.alamat)}</div>
+              <div class="fw-semibold text-white">${escapeHtml(item.nama)}</div>
+              <div class="small text-white-50"><i class="fa-solid fa-location-dot me-1 text-danger"></i>${escapeHtml(item.alamat)}</div>
             </td>
             <td>
-              <div class="fw-semibold text-primary">${escapeHtml(item.perusahaan)}</div>
-              <div class="small text-secondary">${escapeHtml(item.posisi)}</div>
+              <div class="fw-semibold text-warning">${escapeHtml(item.perusahaan)}</div>
+              <div class="small text-white-50">${escapeHtml(item.posisi)}</div>
             </td>
             <td>${statusBadge}</td>
-            <td><span class="small text-muted italic">${escapeHtml(item.catatan || '-')}</span></td>
+            <td><span class="small text-white-50 italic">${escapeHtml(item.catatan || '-')}</span></td>
             <td class="text-center">
-              <button class="btn btn-sm btn-outline-primary rounded-pill px-3" onclick="bukaModalEditAdmin(${item.rowIndex})">
+              <button class="btn btn-sm btn-outline-warning rounded-pill px-3" onclick="bukaModalEditAdmin(${item.rowIndex})">
                 <i class="fa-solid fa-pen me-1"></i> Edit
               </button>
             </td>
